@@ -10,10 +10,10 @@
         Jogo do Spam
     </h1>
     <h2 id="msgs">
-        Quem conseguir spamar mais mensagens em 1 minuto, vence!<br>Mensagens em branco valem meio ponto!<br>Mensagens: <button id="start">Clique para começar!</button>
+        Quem conseguir mandar as mensagens mais longas em 1 minuto, vence!<br>Mensagens em branco não valem nada!<br>Mensagens: <button id="start">Clique para começar!</button>
     </h2>
     <h3>
-        Veja a versão de <a href="msgslongas.html">escrever mensagens longas!</a>
+        Veja a versão <a href="index.html">original!</a>
     </h3>
     <input type="text" id="textField">
     <button id="sendBtn">Enviar</button>
@@ -25,28 +25,28 @@
                 document.getElementById("textField").remove();
                 document.getElementById("sendBtn").remove();
                 setInterval(() => {
-                    document.getElementById("msgs").innerText = "O tempo acabou! Mensagens enviadas: " + msgCount;
+                    document.getElementById("msgs").innerText = "O tempo acabou! Caracteres (letras) enviadas: " + msgCount;
                 }, 1);
             }, 60000);
             let all = document.createElement("h3");
-            all.innerText = "Todas as mensagens:";
+            all.innerText = "Todas as mensagens (com o número de caracteres (letras)):";
             document.body.appendChild(all);
             let msgCount = 0;
             document.getElementById("textField").value = "";
             document.getElementById("start").remove();
-            document.getElementById("msgs").innerText = "Mensagens: 0";
+            document.getElementById("msgs").innerText = "Caracteres (letras): 0";
             function createMsg() {
                 let msg = document.createElement("h4");
                 if (document.getElementById("textField").value === "") {
-                    msg.innerText = "<mensagem em branco>";
-                    msgCount += 0.5;
+                    msg.innerText = "(0) <mensagem em branco>";
+                    msgCount += 0;
                 } else {
-                    msg.innerText = document.getElementById("textField").value;
-                    msgCount += 1;
+                    msg.innerText = "(" + document.getElementById("textField").value.length + ") " + document.getElementById("textField").value;
+                    msgCount += document.getElementById("textField").value.length;
                 }
                 document.body.appendChild(msg);
                 document.getElementById("textField").value = "";
-                document.getElementById("msgs").innerText = "Mensagens: " + msgCount;
+                document.getElementById("msgs").innerText = "Caracteres (letras): " + msgCount;
             }
 
             document.getElementById("sendBtn").addEventListener("click",createMsg);
