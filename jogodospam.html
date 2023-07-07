@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do spam</title>
+</head>
+<body>
+    <h1>
+        Jogo do Spam
+    </h1>
+    <h2 id="msgs">
+        Quem conseguir spamar mais mensagens em 1 minuto, vence!<br>Mensagens em branco valem meio ponto!<br>Mensagens: <button id="start">Clique para começar!</button>
+    </h2>
+    <input type="text" id="textField">
+    <button id="sendBtn">Enviar</button>
+    <br>
+    <script>
+        document.getElementById("start").addEventListener("click",start);
+        function start() {
+            setTimeout(() => {
+                document.getElementById("textField").remove();
+                document.getElementById("sendBtn").remove();
+                setInterval(() => {
+                    document.getElementById("msgs").innerText = "O tempo acabou! Mensagens enviadas: " + msgCount;
+                }, 1);
+            }, 5000); //60000
+            let all = document.createElement("h3");
+            all.innerText = "Todas as mensagens:";
+            document.body.appendChild(all);
+            let msgCount = 0;
+            document.getElementById("textField").value = "";
+            document.getElementById("start").remove();
+            document.getElementById("msgs").innerText = "Mensagens: 0";
+            function createMsg() {
+                let msg = document.createElement("h4");
+                if (document.getElementById("textField").value === "") {
+                    msg.innerText = "<mensagem em branco>";
+                    msgCount += 0.5;
+                } else {
+                    msg.innerText = document.getElementById("textField").value;
+                    msgCount += 1;
+                }
+                document.body.appendChild(msg);
+                document.getElementById("textField").value = "";
+                document.getElementById("msgs").innerText = "Mensagens: " + msgCount;
+            }
+
+            document.getElementById("sendBtn").addEventListener("click",createMsg);
+            document.getElementById("textField").addEventListener("keyup",(event)=>{
+                if (event.key === "Enter") {
+                    createMsg();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
